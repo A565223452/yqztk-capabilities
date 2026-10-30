@@ -31,11 +31,23 @@ Two implementation rules follow from that:
 
 ## Install
 
+The npm registry release is pending (account setup is blocked by a network restriction at the moment).
+Two ways to use it today:
+
 ```bash
-npm install yqztk-capabilities
+# 1. From the pinned release tarball (recommended — reproducible)
+npm install https://github.com/A565223452/yqztk-capabilities/releases/download/v0.2.0/yqztk-capabilities-0.2.0.tgz
+
+# 2. From a clone
+git clone https://github.com/A565223452/yqztk-capabilities
+cd your-project
+npm install /absolute/path/to/yqztk-capabilities
 ```
 
 Requires Node.js 18+. No build step, no peer dependencies, no transitive tree.
+
+> Once the registry release lands, `npm install yqztk-capabilities` and `npx yqztk-capabilities`
+> will work exactly as shown below.
 
 ## Use as a library
 
@@ -71,22 +83,25 @@ If you are writing a test for your own wrapper, assert on those three flags.
 The MCP server speaks JSON-RPC over stdio and has no dependency on the official SDK — it implements `initialize`, `tools/list`, `tools/call` and `ping` directly, and supports protocol versions `2025-06-18`, `2025-03-26` and `2024-11-05`.
 
 ```bash
-npx -y yqztk-capabilities          # start the server on stdio
+npx -y yqztk-capabilities          # start the server on stdio   (after the registry release)
 npx -y yqztk-capabilities --list   # print all 38 tools and exit
 ```
 
-Register it with any MCP client (Claude Desktop, Cursor, or your own agent loop):
+Register it with any MCP client (Claude Desktop, Cursor, or your own agent loop). Until the registry
+release lands, point the client at the installed file directly:
 
 ```json
 {
   "mcpServers": {
     "yqztk": {
-      "command": "npx",
-      "args": ["-y", "yqztk-capabilities"]
+      "command": "node",
+      "args": ["/absolute/path/to/node_modules/yqztk-capabilities/bin/mcp-server.mjs"]
     }
   }
 }
 ```
+
+(After `npm publish`, the shorter form works: `"command": "npx", "args": ["-y", "yqztk-capabilities"]`.)
 
 Why hand-write the protocol instead of using `@modelcontextprotocol/sdk`: the SDK would add a
 transitive dependency tree, which defeats the auditability guarantee above. The stdio transport is
