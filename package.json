@@ -51,5 +51,8 @@
     "url": "git+https://github.com/A565223452/yqztk-capabilities.git"
   },
   "homepage": "https://yuanqizhike.com/custom/",
-  "author": "YuanqiZhiKe"
+  "author": "YuanqiZhiKe",
+  "dependencies": {
+    "yqztk-capabilities": "file:yqztk-capabilities-0.2.0.tgz"
+  }
 }

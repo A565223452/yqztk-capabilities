@@ -43,8 +43,14 @@ Requires Node.js 18+. No build step, no peer dependencies, no transitive tree.
 import { maskPII, buildSchedule, calcMortgage } from 'yqztk-capabilities';
 
 // Redact PII before a text goes anywhere near a third-party model
-maskPII('Call John at john.doe@example.com or +1 415 555 0132');
-// → { text: 'Call John at [EMAIL] or [PHONE]', found: [...] }
+const res = maskPII('Call john.doe@example.com or +1 415 555 0132');
+// res.output → 'Call j*******@e***.com or 141-***-0132'   (default strategy: partial)
+// res.detections → [
+//   { type: 'email', value: 'john.doe@example.com', start: 5,  end: 25, replacement: 'j*******@e***.com' },
+//   { type: 'phone', value: '+1 415 555 0132',      start: 29, end: 44, replacement: '141-***-0132' }
+// ]
+// Nothing leaves the process, and the caller gets a machine-readable audit record of what was found
+// and where — which is the difference between "redacted" and "redacted and provable".
 
 // A repayment schedule with integer-cent arithmetic and a final-period adjustment,
 // so the closing balance is exactly zero instead of "0.0000001"
