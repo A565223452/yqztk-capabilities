@@ -1,0 +1,55 @@
+{
+  "name": "yqztk-capabilities",
+  "version": "0.2.0",
+  "description": "Verifiable, private, deterministic compute primitives with zero dependencies — usable as a library or as an MCP server for AI agents.",
+  "type": "module",
+  "license": "MIT",
+  "engines": {
+    "node": ">=18"
+  },
+  "bin": {
+    "yqztk-capabilities": "./bin/mcp-server.mjs"
+  },
+  "files": [
+    "src",
+    "bin",
+    "test",
+    "LICENSE",
+    "README.md",
+    "README.zh.md"
+  ],
+  "exports": {
+    ".": "./src/index.mjs",
+    "./privacy": "./src/privacy/mask-pii.mjs",
+    "./finance": "./src/finance/amortization.mjs",
+    "./mcp": "./src/mcp/server.mjs"
+  },
+  "scripts": {
+    "test": "node --test",
+    "mcp": "node bin/mcp-server.mjs",
+    "mcp:list": "node bin/mcp-server.mjs --list"
+  },
+  "keywords": [
+    "mcp",
+    "model-context-protocol",
+    "ai-agents",
+    "privacy",
+    "pii",
+    "pii-redaction",
+    "deterministic",
+    "verifiable",
+    "auditable",
+    "offline",
+    "zero-dependency",
+    "calculator",
+    "amortization",
+    "unit-conversion",
+    "readability"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/A565223452/yqztk-capabilities.git"
+  },
+  "homepage": "https://yuanqizhike.com/custom/",
+  "author": "YuanqiZhiKe"
+}
